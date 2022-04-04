@@ -20,4 +20,8 @@ contract UserPool{
     function withdraw() public {}
     // get user location
     function getLocation() public view returns(fixed, fixed){}
+
+    function getUserAddress(uint256 userId) public view returns(address) {
+        return users[userId].userAddress;
+    }
 }

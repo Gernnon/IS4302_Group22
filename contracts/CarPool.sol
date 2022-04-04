@@ -16,6 +16,7 @@ contract CarPool {
         address prevOwner;
         address renter;
         string issue; // damage issues of the car
+
     }
 
     mapping(uint256 => car) public cars;
@@ -31,9 +32,24 @@ contract CarPool {
     // set a car to damaged and describe the issue
     function setToDamaged(uint256 carId, string issue) public ownerOnly validCarId(carId){}
     // owner(CarRental account) can set a car to inuse when a renter use a car
-    function setToInuse(uint256 carId) public ownerOnly(carId) validCarId(carId){}
+    function setToInuse(uint256 carId, address renter) public ownerOnly(carId) validCarId(carId){}
     // owner(CarRental account) can set a car to available when the renter finishs using the car
     function setToAvailable(uint256 carId) public ownerOnly(carId) validCarId(carId) {}
     // get car location
     function getLocation() public view returns(fixed, fixed){}
+
+    function getPrevOwner(uint256 carId) public view returns(address) {
+        return cars[carId].prevOwner;
+    }
+
+    function getRenter(uint256 carId) public view returns(address) {
+        return cars[carId].renter;
+    }
+
+    function isExists(uint256 carId) public view returns(bool) {
+        if (cars[uint256].capacity != 0) {
+            return true;
+        }
+        return false;
+    }
 }
