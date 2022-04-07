@@ -96,6 +96,14 @@ contract UserPool{
         emit Deduct(msg.sender, erc20Amt);
     }
 
+    function topupTo(address user, uint256 amount) public {
+        allUser[allIdentities[user]].balance = allUser[allIdentities[user].balance + amount;
+    }
+
+    function deductFrom(address user, uint256 amount) public {
+        allUser[allIdentities[user]].balance = allUser[allIdentities[user].balance - amount;
+    }
+
     function getUserAddress() public view returns(address) {
         return userAddress;
     }

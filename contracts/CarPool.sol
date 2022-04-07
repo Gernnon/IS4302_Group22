@@ -142,6 +142,20 @@ contract CarPool {
         allCars[_carId] = myCar;
     }
 
+    // update rent state
+    function updateRent(uint256 _carId, string memory _state) public ownerOnly(_carId) validCarId(_carId) {
+        Rental memory myRental = allRentals[_carId];
+        if (_state == "NONE") {
+            myRental.state = rentalState.NONE;
+        } else if (_state == "RENTED") {
+            myRental.state == rentalState.RENTED;
+        } else if (_state == "RETURNED") {
+            myRental.state == rentalState.RETURNED;
+        }
+
+        allRentals[_carId] = myRental;
+    }
+
     // rent the car (will be called from car rental contract)
     function rentCar(uint256 _carId, address _renter, uint256 _duration, uint256 _rate) public validCarId(_carId) {
         Rental memory myRental = Rental({
@@ -165,6 +179,16 @@ contract CarPool {
     // get renter
     function getRenter(uint256 _carId) public view returns(address) {
         return allRentals[_carId].renter;
+    }
+
+    // get rental state of car
+    function getRentalState(uint256 _carId) public view returns(rentalState) {
+        return allRentals[_carId].rentalState;
+    }
+
+    // get owner of car
+    function getOwner(uint256 _carId) public view returns(address) {
+        return allCars[_carId].owner;
     }
 
 }
