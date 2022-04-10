@@ -33,7 +33,7 @@ contract CarPool {
         rentalState status;
     }
 
-    uint public totalCarsCounter = 0; 
+    uint256 public totalCarsCounter = 0; 
     mapping(uint256 => Car) public allCars;
     mapping(uint256 => Rental) public allRentals;
     mapping(address => uint256[]) owners;
@@ -182,12 +182,6 @@ contract CarPool {
         ctContract.transfer(_from, _to, _amt);
     }
 
-    // get car location
-    function getLocation(uint256 _carId) public view returns(string memory) {
-        Car memory myCar = allCars[_carId];
-        return (myCar.coords);
-    }
-
     // get renter
     function getRenter(uint256 _carId) public view returns(address) {
         return allRentals[_carId].renter;
@@ -220,6 +214,9 @@ contract CarPool {
     }
     function getCarLocation(uint256 _carId) public view returns(string memory) {
         return allCars[_carId].coords;
+    }
+    function getCarState(uint256 _carId) public view returns(carState){
+        return allCars[_carId].status;
     }
 
     // check rental status

@@ -143,6 +143,9 @@ contract CarRental {
         allOffers[_carId][index] = allOffers[_carId][(allOffers[_carId].length-1)];
         allOffers[_carId].length--;
         countOffers[_carId]--;
+        
+        //If buyer is cancelling an offer that has already been accepted by a seller.
+        carsContract.cancelRental(_carId);
     }
 
     // renter can cancel offer
@@ -182,7 +185,7 @@ contract CarRental {
         address _renter = carsContract.getRenter(_carId);
         uint256 _rate = carsContract.getRate(_carId);
         uint256 _duration = carsContract.getDuration(_carId);
-        uint256 _amt = (_rate*_duration)-commissionFee;
+        uint256 _amt = (_rate*_duration);
         carsContract.transferCT(_renter, msg.sender, _amt);
         carsContract.transferCT(_renter, address(this), commissionFee);
         totalCommission = totalCommission + commissionFee;
@@ -200,5 +203,15 @@ contract CarRental {
         string memory _licenseType = carsContract.getCarLicenseType(_carId);
         string memory _location = carsContract.getCarLocation(_carId);
         return (_description, _capacity, _licenseType, _location);
+    }
+
+    // function to get offer
+    function getOfferDetails(uint256 carId, uint8 nth) public view returns(uint256, address, uint256, uint256, offerState){
+        uint256 _carId = allOffers[carId][nth].carId;
+        address _renter = allOffers[carId][nth].renter;
+        uint256 _rate = allOffers[carId][nth].rate;
+        uint256 _duration = allOffers[carId][nth].duration;
+        offerState _status = allOffers[carId][nth].status;
+        return (_carId, _renter, _rate, _duration, _status);
     }
 }

@@ -64,7 +64,7 @@ contract UserPool {
 
     function getLicenseNum(address _renter) public view returns(string memory) {
         uint index;
-        for(uint i=0; i<totalUsersCounter; i++) {
+        for(uint i=1; i<=totalUsersCounter; i++) {
             if(allUsers[i].userAddress == _renter) {
                 index = i;
                 break;
@@ -75,7 +75,7 @@ contract UserPool {
 
     function getLicenseType(address _renter) public view returns(string memory) {
         uint index;
-        for(uint i=0; i<totalUsersCounter; i++) {
+        for(uint i=1; i<=totalUsersCounter; i++) {
             if(allUsers[i].userAddress == _renter) {
                 index = i;
                 break;
@@ -86,7 +86,7 @@ contract UserPool {
 
     function getLocation(address _renter) public view returns(string memory) {
         uint index;
-        for(uint i=0; i<totalUsersCounter; i++) {
+        for(uint i=1; i<=totalUsersCounter; i++) {
             if(allUsers[i].userAddress == _renter) {
                 index = i;
                 break;
@@ -98,7 +98,7 @@ contract UserPool {
     function updateBalance(address _renter) public {
         uint256 newbal = ctContract.checkBal(_renter);
         uint index;
-        for(uint i=0; i<totalUsersCounter; i++) {
+        for(uint i=1; i<=totalUsersCounter; i++) {
             if(allUsers[i].userAddress == _renter) {
                 index = i;
                 break;
@@ -113,7 +113,7 @@ contract UserPool {
 
     function checkRegistered(address _renter) public view returns(bool) {
         bool registered = false;
-        for(uint i=0; i<totalUsersCounter; i++) {
+        for(uint i=1; i<=totalUsersCounter; i++) {
             if(allUsers[i].userAddress == _renter) {
                 registered = true;
                 break;
